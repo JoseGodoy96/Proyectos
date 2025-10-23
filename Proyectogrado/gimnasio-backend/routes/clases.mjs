@@ -1,5 +1,6 @@
 import express from 'express';
 import { db } from '../db.mjs';
+import { verificarToken } from '../middleware/middlewareAuth.mjs';
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.get("/:id", (req, res) => {
 	});
 });
 
-router.post("/", (req, res) => {
+router.post("/", verificarToken, (req, res) => {
 	const { nombre, descripcion, fecha_hora, duracion, capacidad } = req.body;
 	if (!nombre || !descripcion)
 		return res.status(400).json({ error: "nombre y descripcion son obligatorios" });
@@ -37,7 +38,7 @@ router.post("/", (req, res) => {
 	});
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", verificarToken, (req, res) => {
 	const { id } = req.params;
 	const { nombre, descripcion, fecha_hora, duracion, capacidad } = req.body;
 	db.query("UPDATE clases SET nombre = ?, descripcion = ?, fecha_hora = ?, duracion = ?, capacidad = ? WHERE id = ?",
@@ -51,7 +52,7 @@ router.put("/:id", (req, res) => {
 	});
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", verificarToken, (req, res) => {
 	const { id } = req.params;
 	db.query("DELETE FROM clases WHERE id = ?",
 		[id],
