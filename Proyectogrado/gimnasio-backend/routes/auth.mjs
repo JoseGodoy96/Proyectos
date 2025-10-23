@@ -1,10 +1,8 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { db } from '../db.mjs';
 
-dotenv.config();
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -49,7 +47,7 @@ router.post("/login", async (req, res) => {
 			if (!passwordValida)
 				return res.status(401).json({ error: "Credenciales invalidas" });
 			const token = jwt.sign(
-				{ id: usuario.id, nombre: usuario.nombre, email: usuario.email },
+				{ id: usuario.id, rol: usuario.rol },
 				process.env.JWT_SECRET,
 				{ expiresIn: process.env.JWT_EXPIRES_IN });
 			res.json({ message: "Login correcto", token });

@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { db } from './db.mjs';
+import dotenv from 'dotenv';
 import usuariosRoutes from './routes/usuarios.mjs';
 import clasesRoutes from './routes/clases.mjs';
 import reservasRoutes from './routes/reservas.mjs';
@@ -10,7 +11,9 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors());
+dotenv.config();
 app.use(express.json());
+
 
 app.use((req, res, next) => {
 	console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`)
