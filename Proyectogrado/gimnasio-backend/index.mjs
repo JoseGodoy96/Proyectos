@@ -4,6 +4,7 @@ import { db } from './db.mjs';
 import usuariosRoutes from './routes/usuarios.mjs';
 import clasesRoutes from './routes/clases.mjs';
 import reservasRoutes from './routes/reservas.mjs';
+import authRoutes from './routes/auth.mjs';
 
 const app = express();
 const PORT = 3000;
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 	res.send("Bienvenido al servidor de node.js conectado con MySQL");
 });
 
+app.use("/api/auth", authRoutes);
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/clases", clasesRoutes);
 app.use("/api/reservas", reservasRoutes);
