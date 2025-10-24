@@ -46,11 +46,21 @@ router.post("/login", async (req, res) => {
 			const passwordValida = await bcrypt.compare(password, usuario.password);
 			if (!passwordValida)
 				return res.status(401).json({ error: "Credenciales invalidas" });
+			delete usuario.password;
 			const token = jwt.sign(
 				{ id: usuario.id, rol: usuario.rol },
 				process.env.JWT_SECRET,
 				{ expiresIn: process.env.JWT_EXPIRES_IN });
-			res.json({ message: "Login correcto", token });
+			res.json({
+				message: "Login correcto",
+				token, 
+				user: {
+					id: usuario.id,
+					nombre: usuario.nombre,
+					email: usuario.email,
+					rol: usuario.rol
+				}
+			});
 	});
 });
 
