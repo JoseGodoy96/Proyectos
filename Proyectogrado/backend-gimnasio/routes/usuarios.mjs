@@ -1,4 +1,5 @@
 import express from 'express';
+import bcrypt from 'bcrypt';
 import { db } from '../db.mjs';
 
 const router = express.Router();
@@ -22,14 +23,25 @@ router.get("/:id", (req, res) => {
 	});
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
 	const { nombre, email, password, rol } = req.body;
-	db.query("INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)",
-		[nombre, email, password, rol || "cliente"],
-		(err, result) => {
-		if (err)
-			return res.status(500).json({ error: err.message });
-		res.status(201).json({ id: result.insertId, nombre, email, rol: rol || "cliente"});
+	if (!nombre || !email || !password)
+		return res.status(400).json({ error: "nombre, email y password son obligatorios"});
+	db.query("SELECT id FROM usuarios WHERE email = ?",
+		[email],
+		async (err, result) => {
+			if (err)
+				return res.status(500).json({ error: err.message });
+			if (result.length !== 0)
+				return res.status(400).json({ error: "El email ya esta registrado" });
+			const hashedPassword = await bcrypt.hash(password, 10);
+			db.query("INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)",
+				[nombre, email, hashedPassword, rol || "cliente"],
+				(err, result) => {
+					if (err)
+						return res.status(500).json({ error: err.message });
+					res.status(201).json({ id: result.insertId, nombre, email, rol: rol || "cliente"});
+			});
 	});
 });
 
