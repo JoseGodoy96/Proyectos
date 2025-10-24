@@ -3,19 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Iniciar Sesión - Gimnario BrokenIron</title>
+	<title>Gimnasio BrokenIron</title>
 	<link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-	<main class="login-container">
-		<h1>Bienvenido a BrokenIron</h1>
-		<form id="loginForm">
-			<input type="email" id="email" placeholder="Correo electronico" required>
-			<input type="password" id="password" placeholder="Contraseña" required>
-			<button type="submit">Iniciar Sesion</button>
-		</form>
-		<p id="errorMsg" class="error"></p>
+	<header class="header">
+		<h1>Gimnasio BrokenIron</h1>
+	</header>
+	<main class="home-container">
+		<section class="welcome">
+			<h2>Bienvenido a BrokenIron</h2>
+			<p>El lugar donde tu fuerza y disciplina se convierten en resultados Inicia sesion o crea una cuenta para acceder a tus clases y reservas.</p>
+			<div class="actions">
+				<a href="login.html" class="btn">Iniciar Sesion</a>
+				<a href="signup.html" class="btn btn-secondary">Registrar usuario</a>
+			</div>
+		</section>
 	</main>
-	<script src="./js/login.js"></script>
+	<footer class="footer">
+		<p>@ 2025 Gimnasio BrokenIron - Todos los derechos reservados</p>
+	</footer>
 </body>
 </html>
