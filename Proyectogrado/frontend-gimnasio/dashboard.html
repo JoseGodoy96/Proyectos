@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Panel del gimnasio</title>
+	<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+	<header>
+		<h1>Gimnasio BrokenIron</h1>
+		<button id="logoutBtn">Cerrar sesión</button>
+	</header>
+	<main id="dashboard">
+		<h2>Bienvenido, <span id="nombreUsuario"></span></h2>
+		<p>Rol: <strong id="rolUsuario"></strong></p>
+		<section id="accionesAdmin" class="panelOculto">
+			<h3>Panel de Administrador</h3>
+			<ul>
+				<li><button onclick="ifA('clases.html')">Gestionar clases</button></li>
+				<li><button onclick="ifA('usuarios.html')">Gestionar usuarios</button></li>
+				<li><button onclick="ifA('reservas.html')">Ver reservas</button></li>
+			</ul>
+		</section>
+		<section id="accionesEmpleado" class="panelOculto">
+			<h3>Panel del Empleado</h3>
+			<ul>
+				<li><button onclick="irA('clases.html')">Ver clases disponibles</button></li>
+				<li><button onclick="irA('reservas.html')">Mis reservas</button></li>
+			</ul>
+		</section>
+
+		<script src="./js/main.js"></script>
+	</main>
+</body>
+</html>
